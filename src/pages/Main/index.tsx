@@ -20,6 +20,7 @@ export function Main() {
   const [career, setCareer] = useState<Career | CareerDB>(INITIAL_CAREER_DATA);
   const [careers, setCareers] = useState<CareerDB[]>([]);
   const [nextPage, setNextPage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const activeUser = useSelector(selectActiveUser);
 
   const { addCareerApi, getCareersApi } = useApi();
@@ -33,9 +34,11 @@ export function Main() {
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    setIsSubmitting(true);
     event.preventDefault();
 
     await addCareer();
+    setIsSubmitting(false);
   }
 
   async function addCareer() {
@@ -80,15 +83,16 @@ export function Main() {
     }
   }, []);
 
+
   return (
-    <div className="flex max-w-[120rem] min-h-screen mx-auto items-center justify-center">
+    <div className="flex min-h-screen mx-auto items-center justify-center">
 
       <div className="flex flex-col gap-4 sm:gap-6 pb-6 bg-white mx-6 w-[40rem] lg:w-[50rem] min-h-screen text-black">
 
         <Header title="CodeLeap Network" enableUser />
 
         <form
-          className="flex flex-col gap-4 sm:gap-6 mx-4 xs:mx-6 p-4 sm:p-6 rounded-2xl border border-zinc-400"   /* "flex flex-col gap-6 max-w-[47rem] md:w-[47rem] mx-auto p-6 rounded-2xl border border-zinc-400" */
+          className="flex flex-col gap-4 sm:gap-6 mx-4 xs:mx-6 p-4 sm:p-6 rounded-2xl border border-zinc-400"
           onSubmit={handleSubmit}
         >
           <Heading className="leading-4" title="What’s on your mind?" />
@@ -99,7 +103,7 @@ export function Main() {
           />
 
           <Button
-            disabled={career.title === "" || career.content === ""}
+            disabled={career.title === "" || career.content === "" || isSubmitting}
           >
             Create
           </Button>

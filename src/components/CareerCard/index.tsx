@@ -9,6 +9,7 @@ import { User } from '../../redux/feature/AuthSlice';
 import { ShowToastTypeError, ShowToastTypeSuccess } from '../../utils/ToastMessage';
 import { getErrorMessage } from '../../utils/ErrorMessageUtil';
 import { useApi } from '../../actions/useApi';
+import { useViewport } from '../../hooks/useViewport';
 
 interface CareerCardProps {
   career: CareerDB;
@@ -21,6 +22,10 @@ export function CareerCard({ career, user = null, handleCareerUpdated, handleCar
   const createdDateTime = parseISO(career.created_datetime as string);
   const isPostOfUser = career.username === user?.username;
   const { deleteCareerApi } = useApi();
+  const { width: screenWidth } = useViewport();
+  const titleLetterLimit = screenWidth > 768 ?
+    0 : screenWidth > 430 ?
+      55 : 25;
 
   async function deleteCareer(id: number) {
     try {
@@ -35,9 +40,9 @@ export function CareerCard({ career, user = null, handleCareerUpdated, handleCar
   }
 
   return (
-    <section className="mx-4 xs:mx-6 rounded-2xl overflow-auto border border-zinc-400"  /* "w-[47rem]  mx-auto rounded-2xl overflow-auto border border-zinc-400" */>
+    <section className="mx-4 xs:mx-6 rounded-2xl overflow-auto border border-zinc-400" >
       <Header
-        title={career.title}
+        title={titleLetterLimit ? career.title.substring(0, titleLetterLimit) : career.title}
         height="sm"
         paddingInline="sm"
         enableButtons={isPostOfUser}
@@ -53,7 +58,7 @@ export function CareerCard({ career, user = null, handleCareerUpdated, handleCar
         </div>
 
 
-        <p className="min-h-[7.25rem] xs:min-h-[10.25rem] text-xs leading-1 xs:text-sm xs:leading-2 sm:text-md sm:leading-3 block whitespace-pre-line break-words">
+        <p className="min-h-[7.25rem] xs:min-h-[10.25rem] text-xs leading-1 xs:text-sm xs:leading-2 sm:text-md sm:leading-3 block whitespace-pre-line break-all">
           {career.content}
         </p>
       </article>

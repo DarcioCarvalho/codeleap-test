@@ -84,7 +84,7 @@ export function Header({
     >
       <Heading
         title={title}
-        className="text-white"
+        className={`text-white ${enableButtons ? "w-[70%]" : "w-[95%]"} text-ellipsis overflow-hidden`}
       />
 
       {enableButtons &&

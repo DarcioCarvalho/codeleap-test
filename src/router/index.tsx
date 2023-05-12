@@ -9,7 +9,6 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Signup />} />
-      <Route path="/initial" element={<Initial />} />
       <Route
         path="/main"
         element={<ProtectedRoute children={<Main />} />}

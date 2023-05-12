@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Signup } from "../pages/Signup";
 import { Main } from "../pages/Main";
-import Initial from "../pages/Initial";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export function Router() {

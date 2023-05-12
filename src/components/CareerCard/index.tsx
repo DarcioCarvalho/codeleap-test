@@ -53,7 +53,7 @@ export function CareerCard({ career, user = null, handleCareerUpdated, handleCar
         </div>
 
 
-        <p className="min-h-[7.25rem] xs:min-h-[10.25rem] text-xs leading-1 xs:text-sm xs:leading-2 sm:text-md sm:leading-3 block whitespace-pre-line">
+        <p className="min-h-[7.25rem] xs:min-h-[10.25rem] text-xs leading-1 xs:text-sm xs:leading-2 sm:text-md sm:leading-3 block whitespace-pre-line break-words">
           {career.content}
         </p>
       </article>

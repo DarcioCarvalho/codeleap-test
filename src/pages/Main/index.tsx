@@ -119,7 +119,7 @@ export function Main() {
 
         {nextPage &&
           <Button
-            className="w-fit h-9 mx-auto px-12"
+            className="w-fit sm:w-fit h-9 mx-auto px-12"
             onClick={(event) => {
               getCareers(nextPage);
               event.currentTarget.blur();
